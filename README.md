@@ -21,7 +21,7 @@ Thank you for your understanding and continued support. -->
 
 ## Screenshots
 
-<img src="https://github.com/sabikraht/intl_phone_field_v2/blob/master/1.png?raw=true" height="500px"> <img src="https://github.com/sabikrahat/intl_phone_field_v2/blob/master/2.png?raw=true" height="500px"> <img src="https://github.com/sabikrahat/intl_phone_field_v2/blob/master/3.png?raw=true" height="500px">
+<img src="https://github.com/sabikrahat/intl_phone_field_v2/blob/main/1.png?raw=true" height="500px"> <img src="https://github.com/sabikrahat/intl_phone_field_v2/blob/main/2.png?raw=true" height="500px"> <img src="https://github.com/sabikrahat/intl_phone_field_v2/blob/main/3.png?raw=true" height="500px">
 
 ## Installing
 
