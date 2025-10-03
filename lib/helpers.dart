@@ -20,10 +20,11 @@ extension CountryExtensions on List<Country> {
       (country) => isNumeric(search) || search.startsWith("+")
           ? country.dialCode.contains(search)
           : removeDiacritics(country.name.replaceAll("+", "").toLowerCase()).contains(search.toLowerCase()) ||
-              country.nameTranslations.values
-                  .any((element) => removeDiacritics(element.toLowerCase()).contains(search)) ||
-              country.code.toLowerCase().contains(search.toLowerCase()) ||
-              country.currencyName.toLowerCase().contains(search.toLowerCase()),
+                country.nameTranslations.values.any(
+                  (element) => removeDiacritics(element.toLowerCase()).contains(search),
+                ) ||
+                country.code.toLowerCase().contains(search.toLowerCase()) ||
+                country.currencyName.toLowerCase().contains(search.toLowerCase()),
     ).toList();
   }
 }

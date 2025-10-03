@@ -373,23 +373,21 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     await showDialog(
       context: context,
       useRootNavigator: false,
-      builder:
-          (context) => StatefulBuilder(
-            builder:
-                (ctx, setState) => CountryPickerDialog(
-                  languageCode: widget.languageCode.toLowerCase(),
-                  style: widget.pickerDialogStyle,
-                  filteredCountries: filteredCountries,
-                  searchText: widget.searchText,
-                  countryList: _countryList,
-                  selectedCountry: _selectedCountry,
-                  onCountryChanged: (Country country) {
-                    _selectedCountry = country;
-                    widget.onCountryChanged?.call(country);
-                    setState(() {});
-                  },
-                ),
-          ),
+      builder: (context) => StatefulBuilder(
+        builder: (ctx, setState) => CountryPickerDialog(
+          languageCode: widget.languageCode.toLowerCase(),
+          style: widget.pickerDialogStyle,
+          filteredCountries: filteredCountries,
+          searchText: widget.searchText,
+          countryList: _countryList,
+          selectedCountry: _selectedCountry,
+          onCountryChanged: (Country country) {
+            _selectedCountry = country;
+            widget.onCountryChanged?.call(country);
+            setState(() {});
+          },
+        ),
+      ),
     );
     if (mounted) setState(() {});
   }
@@ -486,10 +484,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 if (widget.showCountryFlag) ...[
                   kIsWeb
                       ? Image.asset(
-                        'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
-                        package: 'intl_phone_field',
-                        width: 32,
-                      )
+                          'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                          package: 'intl_phone_field_v2',
+                          width: 32,
+                        )
                       : Text(_selectedCountry.flag, style: const TextStyle(fontSize: 18)),
                   const SizedBox(width: 8),
                 ],
