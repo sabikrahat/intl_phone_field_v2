@@ -1,7 +1,7 @@
 ## [4.0.4] - Release
 
 - Flutter web flag image issue fixed.
-- 
+
 ## [4.0.3] - Release
 
 - Updated dependencies and adding support for Flutter 3.35.4.
