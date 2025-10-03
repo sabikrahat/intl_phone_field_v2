@@ -32,11 +32,17 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 SizedBox(height: 30),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Name', border: OutlineInputBorder(borderSide: BorderSide())),
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                  ),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Email', border: OutlineInputBorder(borderSide: BorderSide())),
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                  ),
                 ),
                 SizedBox(height: 10),
                 IntlPhoneField(
