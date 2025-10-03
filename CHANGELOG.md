@@ -1,3 +1,7 @@
+## [4.0.5] - Release
+
+- Set mininum version of dart: `3.7.0` & flutter: `3.29.0` in pubspec.yaml.
+
 ## [4.0.4] - Release
 
 - Flutter web flag image issue fixed.
