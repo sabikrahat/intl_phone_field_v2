@@ -160,6 +160,9 @@ class IntlPhoneField extends StatefulWidget {
   /// Disable view Min/Max Length check
   final bool disableLengthCheck;
 
+  /// Set to true if you want the field to be optional
+  final bool isOptional;
+
   /// Won't work if [enabled] is set to `false`.
   final bool showDropdownIcon;
 
@@ -292,6 +295,7 @@ class IntlPhoneField extends StatefulWidget {
     this.showCountryFlag = true,
     this.cursorColor,
     this.disableLengthCheck = false,
+    this.isOptional = false,
     this.flagsButtonPadding = EdgeInsets.zero,
     this.invalidNumberMessage = 'Invalid Mobile Number',
     this.cursorHeight,
@@ -373,21 +377,23 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     await showDialog(
       context: context,
       useRootNavigator: false,
-      builder: (context) => StatefulBuilder(
-        builder: (ctx, setState) => CountryPickerDialog(
-          languageCode: widget.languageCode.toLowerCase(),
-          style: widget.pickerDialogStyle,
-          filteredCountries: filteredCountries,
-          searchText: widget.searchText,
-          countryList: _countryList,
-          selectedCountry: _selectedCountry,
-          onCountryChanged: (Country country) {
-            _selectedCountry = country;
-            widget.onCountryChanged?.call(country);
-            setState(() {});
-          },
-        ),
-      ),
+      builder:
+          (context) => StatefulBuilder(
+            builder:
+                (ctx, setState) => CountryPickerDialog(
+                  languageCode: widget.languageCode.toLowerCase(),
+                  style: widget.pickerDialogStyle,
+                  filteredCountries: filteredCountries,
+                  searchText: widget.searchText,
+                  countryList: _countryList,
+                  selectedCountry: _selectedCountry,
+                  onCountryChanged: (Country country) {
+                    _selectedCountry = country;
+                    widget.onCountryChanged?.call(country);
+                    setState(() {});
+                  },
+                ),
+          ),
     );
     if (mounted) setState(() {});
   }
@@ -433,17 +439,26 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         widget.onChanged?.call(phoneNumber);
       },
       validator: (value) {
-        if (value == null || !isNumeric(value)) {
-          return widget.invalidNumberMessage;
+        // If field is optional and empty, don't show any error
+        if (widget.isOptional && (value == null || value.trim().isEmpty)) {
+          return null;
         }
 
-        if (!widget.disableLengthCheck) {
+        // Validate numeric value if not optional
+        if (!widget.isOptional) {
+          if (value == null || !isNumeric(value)) {
+            return widget.invalidNumberMessage;
+          }
+        }
+
+        // Only check length if value is not empty and length check is enabled
+        if (!widget.disableLengthCheck && value != null && value.trim().isNotEmpty) {
           final isValidLength =
               value.length >= _selectedCountry.minLength && value.length <= _selectedCountry.maxLength;
           if (!isValidLength) return widget.invalidNumberMessage;
         }
 
-        return null;
+        return null; // valid
       },
       maxLength: widget.disableLengthCheck ? null : _selectedCountry.maxLength,
       keyboardType: widget.keyboardType,
@@ -484,10 +499,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 if (widget.showCountryFlag) ...[
                   kIsWeb
                       ? Image.asset(
-                          'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
-                          package: 'intl_phone_field_v2',
-                          width: 32,
-                        )
+                        'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                        package: 'intl_phone_field_v2',
+                        width: 32,
+                      )
                       : Text(_selectedCountry.flag, style: const TextStyle(fontSize: 18)),
                   const SizedBox(width: 8),
                 ],
